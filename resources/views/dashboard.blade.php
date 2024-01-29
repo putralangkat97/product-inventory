@@ -9,15 +9,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    @can('view user')
+                    @role('superadmin')
                         {{ __("You're logged in as Superadmin!") }}
                         {{ __("You're logged in as Staff!") }}
                         {{ __("You're logged in as User!") }}
-                    @endcan
+                    @endrole
 
-                    @can('create stock request')
-                        {{ __("Create request") }}
-                    @endcan
+                    @role('staff|user')
+                        {{ __('Create request') }}
+                    @endrole
                 </div>
             </div>
         </div>

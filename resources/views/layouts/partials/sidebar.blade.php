@@ -61,18 +61,21 @@
             </div>
             <div class="ml-3 text-gray-800 font-bold mt-6 mb-3">Setting</div>
             <div class="space-y-3 mb-4">
-                <a href="{{ route('role.index') }}"
-                    class="flex flex-row items-center hover:bg-teal-800/10 hover:text-gray-800 mt-3 lg:mt-0 px-4 py-2 transition-colors duration-300 rounded-md {{ request()->routeIs('role.*') ? 'text-gray-800 bg-teal-800/10' : 'text-gray-800' }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shield-lock w-7 h-7 mr-2"
-                        width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                        fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
-                        <path d="M12 11m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                        <path d="M12 12l0 2.5" />
-                    </svg>
-                    <span class="font-medium">{{ __('Role') }}</span>
-                </a>
+                @role('superadmin')
+                    <a href="{{ route('role.index') }}"
+                        class="flex flex-row items-center hover:bg-teal-800/10 hover:text-gray-800 mt-3 lg:mt-0 px-4 py-2 transition-colors duration-300 rounded-md {{ request()->routeIs('role.*') ? 'text-gray-800 bg-teal-800/10' : 'text-gray-800' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="icon icon-tabler icon-tabler-shield-lock w-7 h-7 mr-2" width="44" height="44"
+                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
+                            <path d="M12 11m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                            <path d="M12 12l0 2.5" />
+                        </svg>
+                        <span class="font-medium">{{ __('Role') }}</span>
+                    </a>
+                @endrole
                 <a href="{{ route('profile.edit') }}"
                     class="flex flex-row items-center hover:bg-teal-800/10 hover:text-gray-800 mt-3 lg:mt-0 px-4 py-2 transition-colors duration-300 rounded-md {{ request()->routeIs('profile.edit') ? 'text-gray-800 bg-teal-800/10' : 'text-gray-800' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-cog w-7 h-7 mr-2"
