@@ -59,5 +59,13 @@ Route::middleware(['auth'])
                         Route::get('/{satuan}/edit', 'edit')->name('edit');
                         Route::get('/{satuan}/detail', 'show')->name('show');
                     });
+
+                // Stock Route
+                Route::prefix('/stock')
+                    ->name('stock.')
+                    ->controller(\App\Http\Controllers\StockController::class)
+                    ->group(function () {
+                        Route::get('/', 'index')->name('index');
+                    });
             });
     });

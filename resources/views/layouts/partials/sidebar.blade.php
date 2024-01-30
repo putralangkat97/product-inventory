@@ -30,7 +30,8 @@
         <hr class="hidden lg:block h-px bg-teal-800/10 border-0">
         <nav :class="{ 'block': open, 'hidden': !open }"
             class="flex-grow items-left lg:block px-2 lg:px-6 pb-0 lg:pb-8">
-            <div class="space-y-3 mb-6 mt-2 lg:mt-6">
+            <div class="ml-3 text-gray-800 font-bold mt-6 mb-3">Menu</div>
+            <div class="space-y-3 mb-4">
                 <a href="{{ route('dashboard') }}"
                     class="flex flex-row items-center hover:bg-teal-800/10 hover:text-gray-800 mt-3 lg:mt-0 px-4 py-2 transition-colors duration-300 rounded-md {{ request()->routeIs('dashboard') ? 'text-gray-800 bg-teal-800/10' : 'text-gray-800' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dashboard w-7 h-7 mr-2"
@@ -43,6 +44,37 @@
                     </svg>
                     <span class="font-medium">{{ __('Dashboard') }}</span>
                 </a>
+                @role('superadmin')
+                    <a href="{{ route('satuan.index') }}"
+                        class="flex flex-row items-center hover:bg-teal-800/10 hover:text-gray-800 mt-3 lg:mt-0 px-4 py-2 transition-colors duration-300 rounded-md {{ request()->routeIs('satuan.*') ? 'text-gray-800 bg-teal-800/10' : 'text-gray-800' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-filters w-7 h-7 mr-2"
+                            width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M12 8m-5 0a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" />
+                            <path d="M8 11a5 5 0 1 0 3.998 1.997" />
+                            <path d="M12.002 19.003a5 5 0 1 0 3.998 -8.003" />
+                        </svg>
+                        <span class="font-medium">{{ __('Unit') }}</span>
+                    </a>
+                    <a href="{{ route('stock.index') }}"
+                        class="flex flex-row items-center hover:bg-teal-800/10 hover:text-gray-800 mt-3 lg:mt-0 px-4 py-2 transition-colors duration-300 rounded-md {{ request()->routeIs('stock.*') ? 'text-gray-800 bg-teal-800/10' : 'text-gray-800' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-package w-7 h-7 mr-2"
+                            width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5" />
+                            <path d="M12 12l8 -4.5" />
+                            <path d="M12 12l0 9" />
+                            <path d="M12 12l-8 -4.5" />
+                            <path d="M16 5.25l-8 4.5" />
+                        </svg>
+                        <span class="font-medium">{{ __('Stock') }}</span>
+                    </a>
+                @endrole
+            </div>
+            <div class="ml-3 text-gray-800 font-bold mt-6 mb-3">Setting</div>
+            <div class="space-y-3 mb-4">
                 @role('superadmin')
                     <a href="{{ route('user.index') }}"
                         class="flex flex-row items-center hover:bg-teal-800/10 hover:text-gray-800 mt-3 lg:mt-0 px-4 py-2 transition-colors duration-300 rounded-md {{ request()->routeIs('user.*') ? 'text-gray-800 bg-teal-800/10' : 'text-gray-800' }}">
@@ -57,23 +89,6 @@
                         </svg>
                         <span class="font-medium">{{ __('User') }}</span>
                     </a>
-                    <a href="{{ route('satuan.index') }}"
-                        class="flex flex-row items-center hover:bg-teal-800/10 hover:text-gray-800 mt-3 lg:mt-0 px-4 py-2 transition-colors duration-300 rounded-md {{ request()->routeIs('satuan.*') ? 'text-gray-800 bg-teal-800/10' : 'text-gray-800' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-filters w-7 h-7 mr-2"
-                            width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M12 8m-5 0a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" />
-                            <path d="M8 11a5 5 0 1 0 3.998 1.997" />
-                            <path d="M12.002 19.003a5 5 0 1 0 3.998 -8.003" />
-                        </svg>
-                        <span class="font-medium">{{ __('Unit') }}</span>
-                    </a>
-                @endrole
-            </div>
-            <div class="ml-3 text-gray-800 font-bold mt-6 mb-3">Setting</div>
-            <div class="space-y-3 mb-4">
-                @role('superadmin')
                     <a href="{{ route('role.index') }}"
                         class="flex flex-row items-center hover:bg-teal-800/10 hover:text-gray-800 mt-3 lg:mt-0 px-4 py-2 transition-colors duration-300 rounded-md {{ request()->routeIs('role.*') ? 'text-gray-800 bg-teal-800/10' : 'text-gray-800' }}">
                         <svg xmlns="http://www.w3.org/2000/svg"
