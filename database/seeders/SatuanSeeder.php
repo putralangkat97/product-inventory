@@ -17,7 +17,6 @@ class SatuanSeeder extends Seeder
             ['name' => 'Kg'],
             ['name' => 'Pcs'],
             ['name' => 'Bungkus'],
-            ['name' => 'Unit'],
         ];
 
         foreach ($satuans as $satuan) {

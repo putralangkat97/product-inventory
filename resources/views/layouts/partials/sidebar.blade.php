@@ -43,7 +43,7 @@
                     </svg>
                     <span class="font-medium">{{ __('Dashboard') }}</span>
                 </a>
-                @role('superadmin|staff')
+                @role('superadmin')
                     <a href="{{ route('user.index') }}"
                         class="flex flex-row items-center hover:bg-teal-800/10 hover:text-gray-800 mt-3 lg:mt-0 px-4 py-2 transition-colors duration-300 rounded-md {{ request()->routeIs('user.*') ? 'text-gray-800 bg-teal-800/10' : 'text-gray-800' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users w-7 h-7 mr-2"
@@ -56,6 +56,18 @@
                             <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
                         </svg>
                         <span class="font-medium">{{ __('User') }}</span>
+                    </a>
+                    <a href="{{ route('satuan.index') }}"
+                        class="flex flex-row items-center hover:bg-teal-800/10 hover:text-gray-800 mt-3 lg:mt-0 px-4 py-2 transition-colors duration-300 rounded-md {{ request()->routeIs('satuan.*') ? 'text-gray-800 bg-teal-800/10' : 'text-gray-800' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-filters w-7 h-7 mr-2"
+                            width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M12 8m-5 0a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" />
+                            <path d="M8 11a5 5 0 1 0 3.998 1.997" />
+                            <path d="M12.002 19.003a5 5 0 1 0 3.998 -8.003" />
+                        </svg>
+                        <span class="font-medium">{{ __('Unit') }}</span>
                     </a>
                 @endrole
             </div>

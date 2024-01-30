@@ -2,7 +2,20 @@
     'width' => '3/4',
 ])
 
-<div {{ $attributes->merge(['class' => 'bg-white border border-gray-300 rounded-lg p-6 w-full lg:w-' . $width]) }}>
+<?php
+$lebar = '';
+if ($width == '1/4') {
+    $lebar = ' lg:w-1/4';
+} elseif ($width == '2/4') {
+    $lebar = ' lg:w-2/4';
+} elseif ($width == '3/4') {
+    $lebar = ' lg:w-3/4';
+} else {
+    $lebar = ' lg:w-full';
+}
+?>
+
+<div {{ $attributes->merge(['class' => 'bg-white border border-gray-300 rounded-lg p-6' . $lebar]) }}>
     {{ $navigation ?? '' }}
     {{ $slot }}
 </div>
