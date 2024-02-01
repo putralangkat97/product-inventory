@@ -87,7 +87,7 @@
                             <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                             <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
                         </svg>
-                        <span class="font-medium">{{ __('User') }}</span>
+                        <span class="font-medium">{{ __('Users') }}</span>
                     </a>
                     <a href="{{ route('role.index') }}"
                         class="flex flex-row items-center hover:bg-teal-800/10 hover:text-gray-800 mt-3 lg:mt-0 px-4 py-2 transition-colors duration-300 rounded-md {{ request()->routeIs('role.*') ? 'text-gray-800 bg-teal-800/10' : 'text-gray-800' }}">

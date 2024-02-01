@@ -17,6 +17,6 @@
     </div>
 
     <div class="pt-4 pb-10 flex flex-col">
-        {{-- <livewire:satuan.index-satuan :satuans="$satuans" /> --}}
+        <livewire:stock.index-stock :stocks="$stocks" />
     </div>
 </x-app-layout>

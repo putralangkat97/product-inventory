@@ -6,7 +6,7 @@
 $lebar = '';
 if ($width == '1/4') {
     $lebar = ' lg:w-1/4';
-} elseif ($width == '2/4') {
+} elseif ($width == '1/2') {
     $lebar = ' lg:w-2/4';
 } elseif ($width == '3/4') {
     $lebar = ' lg:w-3/4';
@@ -15,7 +15,7 @@ if ($width == '1/4') {
 }
 ?>
 
-<div {{ $attributes->merge(['class' => 'bg-white border border-gray-300 rounded-lg p-6' . $lebar]) }}>
+<div {{ $attributes->merge(['class' => 'bg-white border border-gray-300 rounded-lg p-6 w-full' . $lebar]) }}>
     {{ $navigation ?? '' }}
     {{ $slot }}
 </div>

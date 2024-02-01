@@ -66,6 +66,9 @@ Route::middleware(['auth'])
                     ->controller(\App\Http\Controllers\StockController::class)
                     ->group(function () {
                         Route::get('/', 'index')->name('index');
+                        Route::get('/create', 'create')->name('create');
+                        Route::get('/{stock}/edit', 'edit')->name('edit');
+                        Route::get('/{stock}/detail', 'show')->name('show');
                     });
             });
     });
