@@ -25,6 +25,37 @@ Route::middleware(['auth'])
                 Route::delete('/', 'destroy')->name('destroy');
             });
 
+        // Stock Route
+        Route::prefix('/stock')
+            ->name('stock.')
+            ->controller(\App\Http\Controllers\StockController::class)
+            ->group(function () {
+                Route::middleware([
+                    'role:superadmin|user',
+                    'permission:view stock'
+                ])->group(function () {
+                    Route::get('/', 'index')->name('index');
+                    Route::get('/{stock}/detail', 'show')->name('show');
+                });
+                Route::middleware(['role:superadmin'])
+                    ->group(function () {
+                        Route::get('/create', 'create')->name('create');
+                        Route::get('/{stock}/edit', 'edit')->name('edit');
+                    });
+            });
+
+        Route::middleware([
+            'role:staff',
+            'permission:view stock request|accept stock request|reject stock request'
+        ])->group(function () {
+            Route::prefix('/stock-request')
+                ->name('stock-request.')
+                ->controller(\App\Http\Controllers\StockRequestController::class)
+                ->group(function () {
+                    Route::get('/', 'index')->name('index');
+                });
+        });
+
         Route::middleware('role:superadmin')
             ->group(function () {
                 // User Route
@@ -58,17 +89,6 @@ Route::middleware(['auth'])
                         Route::get('/create', 'create')->name('create');
                         Route::get('/{satuan}/edit', 'edit')->name('edit');
                         Route::get('/{satuan}/detail', 'show')->name('show');
-                    });
-
-                // Stock Route
-                Route::prefix('/stock')
-                    ->name('stock.')
-                    ->controller(\App\Http\Controllers\StockController::class)
-                    ->group(function () {
-                        Route::get('/', 'index')->name('index');
-                        Route::get('/create', 'create')->name('create');
-                        Route::get('/{stock}/edit', 'edit')->name('edit');
-                        Route::get('/{stock}/detail', 'show')->name('show');
                     });
             });
     });

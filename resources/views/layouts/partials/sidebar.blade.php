@@ -57,6 +57,8 @@
                         </svg>
                         <span class="font-medium">{{ __('Unit') }}</span>
                     </a>
+                @endrole
+                @role('superadmin|user')
                     <a href="{{ route('stock.index') }}"
                         class="flex flex-row items-center hover:bg-teal-800/10 hover:text-gray-800 mt-3 lg:mt-0 px-4 py-2 transition-colors duration-300 rounded-md {{ request()->routeIs('stock.*') ? 'text-gray-800 bg-teal-800/10' : 'text-gray-800' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-package w-7 h-7 mr-2"
@@ -70,6 +72,23 @@
                             <path d="M16 5.25l-8 4.5" />
                         </svg>
                         <span class="font-medium">{{ __('Stock') }}</span>
+                    </a>
+                @endrole
+                @role('staff')
+                    <a href="{{ route('stock-request.index') }}"
+                        class="flex flex-row items-center hover:bg-teal-800/10 hover:text-gray-800 mt-3 lg:mt-0 px-4 py-2 transition-colors duration-300 rounded-md {{ request()->routeIs('stock-request.*') ? 'text-gray-800 bg-teal-800/10' : 'text-gray-800' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clipboard-list w-7 h-7 mr-2"
+                            width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+                            <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+                            <path d="M9 12l.01 0" />
+                            <path d="M13 12l2 0" />
+                            <path d="M9 16l.01 0" />
+                            <path d="M13 16l2 0" />
+                        </svg>
+                        <span class="font-medium">{{ __('Stock Request') }}</span>
                     </a>
                 @endrole
             </div>

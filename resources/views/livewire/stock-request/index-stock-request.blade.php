@@ -95,7 +95,7 @@
                             </th>
                             <th scope="col"
                                 class="py-3 pl-4 sm:pl-6 pr-3 text-left text-sm font-semibold text-gray-800">
-                                {{ __('Stock Code') }}
+                                {{ __('Transaction Code') }}
                             </th>
                             <th scope="col"
                                 class="hidden lg:table-cell py-3 pl-3 pr-3 text-left text-sm font-semibold text-gray-800">
@@ -103,10 +103,10 @@
                             </th>
                             <th scope="col"
                                 class="hidden sm:table-cell py-3 pl-3 pr-3 text-left text-sm font-semibold text-gray-800">
-                                {{ __('Stock Qty') }}
+                                {{ __('Qty') }}
                             </th>
                             <th scope="col" class="py-3 pl-3 pr-3 text-center text-sm font-semibold text-gray-800">
-                                {{ __('Satuan') }}
+                                {{ __('Applicant') }}
                             </th>
                             <th scope="col"
                                 class="py-3 pl-3 pr-3 text-left sm:text-center text-sm font-semibold text-gray-800">
@@ -115,56 +115,39 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 bg-white">
-                        @foreach ($stocks as $stock)
+                        @foreach ($stock_requests as $stock_request)
                             <tr>
                                 <td class="pl-3 w-10">
                                     <x-checkbox-input />
                                 </td>
                                 <td
                                     class="whitespace-nowrap w-full max-w-0 sm:w-auto truncate py-4 pl-4 pr-3 text-sm font-medium text-gray-800 sm:pl-6 sm:max-w-0">
-                                    <a href="{{ route('stock.show', $stock) }}"
+                                    <a href="{{ route('stock.show', $stock_request) }}"
                                         class="hover:underline text-gray-800 hover:text-teal-800 transition-colors duration-200">
                                         <div class="flex items-center">
-                                            {{ $stock->stock_code }}
-                                            @if ($stock->is_private)
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    class="inline icon icon-tabler icon-tabler-eye-off w-5 h-5 text-gray-500 ml-2"
-                                                    width="44" height="44" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor" fill="none"
-                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                    <path d="M10.585 10.587a2 2 0 0 0 2.829 2.828" />
-                                                    <path
-                                                        d="M16.681 16.673a8.717 8.717 0 0 1 -4.681 1.327c-3.6 0 -6.6 -2 -9 -6c1.272 -2.12 2.712 -3.678 4.32 -4.674m2.86 -1.146a9.055 9.055 0 0 1 1.82 -.18c3.6 0 6.6 2 9 6c-.666 1.11 -1.379 2.067 -2.138 2.87" />
-                                                    <path d="M3 3l18 18" />
-                                                </svg>
-                                            @endif
+                                            {{ $stock_request->transaction_code }}
                                         </div>
                                     </a>
                                     <dl class="lg:hidden font-normal">
                                         <dt class="sr-only lg:hidden">{{ __('Stock Name') }}</dt>
-                                        <dd class="lg:hidden text-gray-600">{{ $stock->stock_name }}</dd>
-                                        <dt class="sr-only sm:hidden">{{ __('Stock Qty') }}</dt>
+                                        <dd class="lg:hidden text-gray-600">{{ $stock_request->stock->stock_name }}</dd>
+                                        <dt class="sr-only sm:hidden">{{ __('Qty') }}</dt>
                                         <dd class="text-gray-400 sm:text-gray-600 sm:hidden">
-                                            {{ $stock->stock_qty }}
+                                            {{ $stock->stock_qty . ' ' . $stock_request->satuan }}
                                         </dd>
                                     </dl>
                                 </td>
                                 <td class="hidden lg:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    {{ $stock->stock_name }}
+                                    {{ $stock_request->stock->stock_name }}
                                 </td>
                                 <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    {{ $stock->stock_qty }}
+                                    {{ $stock->stock_qty . ' ' . $stock_request->satuan }}
                                 </td>
                                 <td class="whitespace-nowrap text-center px-3 py-4 text-sm text-gray-500">
-                                    {{ $stock->satuan->name }}
+                                    {{ $stock->user->full_name }}
                                 </td>
                                 <td
                                     class="relative whitespace-nowrap py-4 pl-3 pr-4 text-left sm:text-center text-sm font-medium sm:pr-6">
-                                    @role('superadmin')
-                                        <a href="{{ route('stock.edit', $stock) }}"
-                                            class="hover:underline text-teal-500 hover:text-teal-800 transition-colors duration-200">Edit</a>
-                                    @endrole
                                     @role('staff')
                                         <button
                                             type="button"
@@ -172,10 +155,6 @@
                                         <button
                                             type="button"
                                             class="px-2 py-1 rounded-md bg-red-500 text-white transition-colors duration-200">Reject</button>
-                                    @endrole
-                                    @role('user')
-                                        <a href="{{ route('stock.edit', $stock) }}"
-                                            class="hover:underline text-teal-500 hover:text-teal-800 transition-colors duration-200">Request</a>
                                     @endrole
                                 </td>
                             </tr>

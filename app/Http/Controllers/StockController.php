@@ -5,13 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Satuan;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
     public function index()
     {
+        $current_user = Auth::user();
+        $stocks = Stock::with('satuan');
+        if ($current_user->hasRole('staff') || $current_user->hasRole('user')) {
+            $stocks = $stocks->where('is_private', false);
+        }
+
         return view('stock/index', [
-            'stocks' => Stock::with('satuan')->orderBy('id', 'desc')
+            'stocks' => $stocks->orderBy('id', 'desc')
                 ->get(),
         ]);
     }

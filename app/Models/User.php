@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Division::class);
     }
 
+    public function stockRequests()
+    {
+        return $this->hasMany(StockRequest::class);
+    }
+
     public function userPermissions($permissions): Array
     {
         $permissions_array = [];
