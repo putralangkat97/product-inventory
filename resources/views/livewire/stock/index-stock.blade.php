@@ -165,16 +165,8 @@
                                         <a href="{{ route('stock.edit', $stock) }}"
                                             class="hover:underline text-teal-500 hover:text-teal-800 transition-colors duration-200">Edit</a>
                                     @endrole
-                                    @role('staff')
-                                        <button
-                                            type="button"
-                                            class="px-2 py-1 rounded-md bg-teal-500 text-white transition-colors duration-200">Accept</button>
-                                        <button
-                                            type="button"
-                                            class="px-2 py-1 rounded-md bg-red-500 text-white transition-colors duration-200">Reject</button>
-                                    @endrole
                                     @role('user')
-                                        <a href="{{ route('stock.edit', $stock) }}"
+                                        <a href="{{ route('stock-request.create', $stock) }}"
                                             class="hover:underline text-teal-500 hover:text-teal-800 transition-colors duration-200">Request</a>
                                     @endrole
                                 </td>

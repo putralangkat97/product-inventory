@@ -44,17 +44,24 @@ Route::middleware(['auth'])
                     });
             });
 
-        Route::middleware([
-            'role:staff',
-            'permission:view stock request|accept stock request|reject stock request'
-        ])->group(function () {
-            Route::prefix('/stock-request')
-                ->name('stock-request.')
-                ->controller(\App\Http\Controllers\StockRequestController::class)
-                ->group(function () {
+        Route::prefix('/stock-request')
+            ->name('stock-request.')
+            ->controller(\App\Http\Controllers\StockRequestController::class)
+            ->group(function () {
+                Route::middleware([
+                    'role:staff|user|superadmin',
+                    'permission:view stock request|accept stock request|reject stock request'
+                ])->group(function () {
                     Route::get('/', 'index')->name('index');
+                    Route::get('/history', 'history')->name('history');
                 });
-        });
+                Route::middleware([
+                    'role:user|staff',
+                    'permission:create stock request|edit stock request|view stock request|delete stock request'
+                ])->group(function () {
+                    Route::get('/{stock}/create-request', 'create')->name('create');
+                });
+            });
 
         Route::middleware('role:superadmin')
             ->group(function () {

@@ -11,4 +11,4 @@ if ($disabled) {
 
 ?>
 
-<input {{ $disabled ? 'disabled' : '' }} {{ $attributes->merge(['class' => $class]) }}>
+<textarea {{ $disabled ? 'disabled' : '' }} {{ $attributes->merge(['class' => $class]) }} rows="6" cols="10"></textarea>

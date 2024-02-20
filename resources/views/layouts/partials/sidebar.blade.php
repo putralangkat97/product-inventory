@@ -60,7 +60,7 @@
                 @endrole
                 @role('superadmin|user')
                     <a href="{{ route('stock.index') }}"
-                        class="flex flex-row items-center hover:bg-teal-800/10 hover:text-gray-800 mt-3 lg:mt-0 px-4 py-2 transition-colors duration-300 rounded-md {{ request()->routeIs('stock.*') ? 'text-gray-800 bg-teal-800/10' : 'text-gray-800' }}">
+                        class="flex flex-row items-center hover:bg-teal-800/10 hover:text-gray-800 mt-3 lg:mt-0 px-4 py-2 transition-colors duration-300 rounded-md {{ request()->routeIs('stock.*') || request()->routeIs('stock-request.*') ? 'text-gray-800 bg-teal-800/10' : 'text-gray-800' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-package w-7 h-7 mr-2"
                             width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                             fill="none" stroke-linecap="round" stroke-linejoin="round">

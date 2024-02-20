@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('satuan');
             $table->dateTime('request_date');
             $table->enum('status', ['pending', 'accepted', 'rejected']);
+            $table->string('remarks')->nullable();
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete();

@@ -105,13 +105,20 @@
                                 class="hidden sm:table-cell py-3 pl-3 pr-3 text-left text-sm font-semibold text-gray-800">
                                 {{ __('Qty') }}
                             </th>
+                            @role('staff')
+                                <th scope="col" class="py-3 pl-3 pr-3 text-center text-sm font-semibold text-gray-800">
+                                    {{ __('Applicant') }}
+                                </th>
+                            @endrole
                             <th scope="col" class="py-3 pl-3 pr-3 text-center text-sm font-semibold text-gray-800">
-                                {{ __('Applicant') }}
+                                {{ __('Status') }}
                             </th>
-                            <th scope="col"
-                                class="py-3 pl-3 pr-3 text-left sm:text-center text-sm font-semibold text-gray-800">
-                                Action
-                            </th>
+                            @if (!$history || auth()->user()->hasRole('user'))
+                                <th scope="col"
+                                    class="py-3 pl-3 pr-3 text-left sm:text-center text-sm font-semibold text-gray-800">
+                                    Action
+                                </th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 bg-white">
@@ -130,10 +137,11 @@
                                     </a>
                                     <dl class="lg:hidden font-normal">
                                         <dt class="sr-only lg:hidden">{{ __('Stock Name') }}</dt>
-                                        <dd class="lg:hidden text-gray-600">{{ $stock_request->stock->stock_name }}</dd>
+                                        <dd class="lg:hidden text-gray-600">{{ $stock_request->stock->stock_name }}
+                                        </dd>
                                         <dt class="sr-only sm:hidden">{{ __('Qty') }}</dt>
                                         <dd class="text-gray-400 sm:text-gray-600 sm:hidden">
-                                            {{ $stock->stock_qty . ' ' . $stock_request->satuan }}
+                                            {{ $stock_request->stock_qty . ' ' . $stock_request->satuan }}
                                         </dd>
                                     </dl>
                                 </td>
@@ -141,22 +149,36 @@
                                     {{ $stock_request->stock->stock_name }}
                                 </td>
                                 <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    {{ $stock->stock_qty . ' ' . $stock_request->satuan }}
+                                    {{ $stock_request->qty . ' ' . $stock_request->satuan }}
                                 </td>
+                                @role('staff')
+                                    <td class="whitespace-nowrap text-center px-3 py-4 text-sm text-gray-500">
+                                        {{ $stock_request->user->full_name }}
+                                    </td>
+                                @endrole
                                 <td class="whitespace-nowrap text-center px-3 py-4 text-sm text-gray-500">
-                                    {{ $stock->user->full_name }}
+                                    {{ $stock_request->status }}
                                 </td>
-                                <td
-                                    class="relative whitespace-nowrap py-4 pl-3 pr-4 text-left sm:text-center text-sm font-medium sm:pr-6">
-                                    @role('staff')
-                                        <button
-                                            type="button"
-                                            class="px-2 py-1 rounded-md bg-teal-500 text-white transition-colors duration-200">Accept</button>
-                                        <button
-                                            type="button"
-                                            class="px-2 py-1 rounded-md bg-red-500 text-white transition-colors duration-200">Reject</button>
-                                    @endrole
-                                </td>
+                                @role('user')
+                                    <td
+                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-left sm:text-center text-sm font-medium sm:pr-6">
+                                        @if ($history)
+                                            <a href="{{ route('user.edit', $stock_request) }}"
+                                                class="hover:underline text-teal-500 hover:text-teal-800 transition-colors duration-200">Edit</a>
+                                        @endif
+                                    </td>
+                                @endrole
+                                @role('staff')
+                                    @if (!$history)
+                                        <td
+                                            class="relative whitespace-nowrap py-4 pl-3 pr-4 text-left sm:text-center text-sm font-medium sm:pr-6">
+                                            <button type="button"
+                                                class="px-2 py-1 rounded-md bg-teal-500 text-white transition-colors duration-200" wire:click="accept({{ $stock_request }})" wire:confirm="Are you sure want to Accept this request?">Accept</button>
+                                            <button type="button"
+                                                class="px-2 py-1 rounded-md bg-red-500 text-white transition-colors duration-200" wire:click="reject({{ $stock_request }})" wire:confirm="Are you sure want to Reject this request?">Reject</button>
+                                        </td>
+                                    @endif
+                                @endrole
                             </tr>
                         @endforeach
                     </tbody>
