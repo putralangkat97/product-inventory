@@ -39,4 +39,12 @@ class StockRequestController extends Controller
                 ->get(),
         ]);
     }
+
+    public function edit(Stock $stock, StockRequest $stock_request)
+    {
+        return view('stock-request/edit', [
+            'stock' => $stock,
+            'stock_request' => $stock_request
+        ]);
+    }
 }

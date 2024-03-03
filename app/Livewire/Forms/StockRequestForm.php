@@ -44,11 +44,13 @@ class StockRequestForm extends Form
                 ->transaction_code ?? 0;
             $last_increment = substr($last_number, -5);
             $type = '';
+            $stock = Stock::find($this->stock_id);
             if ($this->id) {
                 $stock_request = StockRequest::findOrFail($this->id);
                 $current_code = $stock_request->transaction_code;
                 $status = $stock_request->status;
                 $type = 'edit';
+                $stock_request = StockRequest::find($this->id);
             } else {
                 $stock_request = new StockRequest();
                 $current_code = config('inventory.transaction_code_prefix') . date('Y') . str_pad($last_increment + 1, 5, 0, STR_PAD_LEFT);
@@ -56,16 +58,16 @@ class StockRequestForm extends Form
                 $type = 'create';
             }
             $stock_request->transaction_code = $current_code;
-            $stock_request->stock_id = $this->stock_id;
+            $stock_request->stock_id = $stock->id;
             $stock_request->satuan = $this->satuan;
-            $stock_request->qty = $validated['qty'];
             $stock_request->request_date = $validated['request_date'];
             $stock_request->remarks = $validated['remarks'];
             $stock_request->user_id = Auth::user()->id;
             $stock_request->status = $status;
-            $stock_request->save();
 
-            if ($this->stockManagement($type, $stock_request)) {
+            if ($this->stockManagement($type, $validated['qty'], $stock_request)) {
+                $stock_request->qty = $validated['qty'];
+                $stock_request->save();
                 DB::commit();
             }
         } catch (\Exception $e) {
@@ -80,22 +82,24 @@ class StockRequestForm extends Form
             $this->stock_id = $stock->id;
             $this->stock_name = $stock->stock_name;
             $this->satuan = $stock->satuan->name;
+            if ($stock_request) {
+                $this->id = $stock_request->id;
+                $this->qty = $stock_request->qty;
+                $this->request_date = date('Y-m-d', strtotime($stock_request->request_date));
+                $this->remarks = $stock_request->remarks;
+            }
         }
     }
 
-    private function stockManagement(string $type = null, object|array $stock_request): Bool
+    private function stockManagement(string $type = null, string|int $qty, object|array $stock_request = null): Bool
     {
         $stock = Stock::findOrFail($this->stock_id);
         if ($type == 'create') {
-            $stock->stock_qty = $stock->stock_qty - $stock_request->qty;
+            $stock->stock_qty = $stock->stock_qty - $qty;
             $stock->save();
             return true;
         } else {
-            $stock_qty = $stock->stock_qty + $stock_request->qty;
-            $stock->stock_qty = $stock_qty;
-            $stock->save();
-
-            $stock->stock_qty = $stock->stock_qty - $stock_request->qty;
+            $stock->stock_qty = $stock->stock_qty + ($stock_request->qty - $qty);
             $stock->save();
 
             return true;

@@ -163,7 +163,10 @@
                                     <td
                                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-left sm:text-center text-sm font-medium sm:pr-6">
                                         @if ($history)
-                                            <a href="{{ route('user.edit', $stock_request) }}"
+                                            <a href="{{ route('stock-request.edit', [
+                                                'stock' => $stock_request->stock,
+                                                'stock_request' => $stock_request,
+                                            ]) }}"
                                                 class="hover:underline text-teal-500 hover:text-teal-800 transition-colors duration-200">Edit</a>
                                         @endif
                                     </td>
@@ -173,9 +176,13 @@
                                         <td
                                             class="relative whitespace-nowrap py-4 pl-3 pr-4 text-left sm:text-center text-sm font-medium sm:pr-6">
                                             <button type="button"
-                                                class="px-2 py-1 rounded-md bg-teal-500 text-white transition-colors duration-200" wire:click="accept({{ $stock_request }})" wire:confirm="Are you sure want to Accept this request?">Accept</button>
+                                                class="px-2 py-1 rounded-md bg-teal-500 text-white transition-colors duration-200"
+                                                wire:click="accept({{ $stock_request }})"
+                                                wire:confirm="Are you sure want to Accept this request?">Accept</button>
                                             <button type="button"
-                                                class="px-2 py-1 rounded-md bg-red-500 text-white transition-colors duration-200" wire:click="reject({{ $stock_request }})" wire:confirm="Are you sure want to Reject this request?">Reject</button>
+                                                class="px-2 py-1 rounded-md bg-red-500 text-white transition-colors duration-200"
+                                                wire:click="reject({{ $stock_request }})"
+                                                wire:confirm="Are you sure want to Reject this request?">Reject</button>
                                         </td>
                                     @endif
                                 @endrole
