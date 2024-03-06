@@ -60,6 +60,7 @@ Route::middleware(['auth'])
                     'permission:create stock request|edit stock request|view stock request|delete stock request'
                 ])->group(function () {
                     Route::get('/{stock}/create-request', 'create')->name('create');
+                    Route::get('/{stock}/{stock_request}/detail-request', 'show')->name('show');
                     Route::get('/{stock}/{stock_request}/edit-request', 'edit')->name('edit');
                 });
             });

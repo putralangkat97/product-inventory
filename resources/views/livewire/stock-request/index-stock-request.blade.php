@@ -129,7 +129,7 @@
                                 </td>
                                 <td
                                     class="whitespace-nowrap w-full max-w-0 sm:w-auto truncate py-4 pl-4 pr-3 text-sm font-medium text-gray-800 sm:pl-6 sm:max-w-0">
-                                    <a href="{{ route('stock.show', $stock_request) }}"
+                                    <a href="{{ route('stock-request.show', ['stock' => $stock_request->stock, 'stock_request' => $stock_request]) }}"
                                         class="hover:underline text-gray-800 hover:text-teal-800 transition-colors duration-200">
                                         <div class="flex items-center">
                                             {{ $stock_request->transaction_code }}
@@ -175,14 +175,22 @@
                                     @if (!$history)
                                         <td
                                             class="relative whitespace-nowrap py-4 pl-3 pr-4 text-left sm:text-center text-sm font-medium sm:pr-6">
-                                            <button type="button"
-                                                class="px-2 py-1 rounded-md bg-teal-500 text-white transition-colors duration-200"
-                                                wire:click="accept({{ $stock_request }})"
-                                                wire:confirm="Are you sure want to Accept this request?">Accept</button>
-                                            <button type="button"
-                                                class="px-2 py-1 rounded-md bg-red-500 text-white transition-colors duration-200"
-                                                wire:click="reject({{ $stock_request }})"
-                                                wire:confirm="Are you sure want to Reject this request?">Reject</button>
+                                            @if ($stock_request->status == 'pending')
+                                                <button type="button"
+                                                    class="px-2 py-1 rounded-md bg-teal-500 text-white transition-colors duration-200"
+                                                    wire:click="accept({{ $stock_request }})"
+                                                    wire:confirm="Are you sure want to Accept this request?">Accept</button>
+                                                <button type="button"
+                                                    class="px-2 py-1 rounded-md bg-red-500 text-white transition-colors duration-200"
+                                                    wire:click="reject({{ $stock_request }})"
+                                                    wire:confirm="Are you sure want to Reject this request?">Reject</button>
+                                            @else
+                                                <a href="{{ route('stock-request.show', [
+                                                    'stock' => $stock_request->stock,
+                                                    'stock_request' => $stock_request,
+                                                ]) }}"
+                                                    class="px-2 py-1 rounded-md bg-blue-500 text-white transition-colors duration-200">{{ __('See') }}</button>
+                                            @endif
                                         </td>
                                     @endif
                                 @endrole

@@ -47,4 +47,12 @@ class StockRequestController extends Controller
             'stock_request' => $stock_request
         ]);
     }
+
+    public function show(Stock $stock, StockRequest $stock_request)
+    {
+        return view('stock-request/detail', [
+            'stock' => $stock,
+            'stock_request' => $stock_request
+        ]);
+    }
 }
